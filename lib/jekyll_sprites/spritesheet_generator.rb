@@ -4,26 +4,26 @@ require_relative 'util'
 require_relative 'config'
 require_relative 'hook_actions'
 
-class SpritesheetsGenerator
+class SpritesheetGenerator
 
     def initialize()
         @svg_properties = {}
         @rexml_spritesheet_properties = {}
     end
 
-    def add_svg_properties(svg_rel_path, page_path)
-        @svg_properties[svg_rel_path] ||= {}
-        @svg_properties[svg_rel_path]["pages"] ||= {}
-        @svg_properties[svg_rel_path]["pages"][page_path] ||= (svg_rel_path+page_path).gsub(/[^0-9a-zA-Z]/, '')
-        @svg_properties[svg_rel_path]["spritesheet"] = Zlib.crc32(@svg_properties[svg_rel_path]["pages"].keys.join).to_s(16)+".svg"
+    def add_svg_properties(svg_path, page_path) #should be more explicit if possible? name keys etc as opposed to guessing what vals are supposd to be
+        @svg_properties[svg_path] ||= {}
+        @svg_properties[svg_path]["pages"] ||= {}
+        @svg_properties[svg_path]["pages"][page_path] ||= (svg_path+page_path).gsub(/[^0-9a-zA-Z]/, '')
+        @svg_properties[svg_path]["spritesheet"] = Zlib.crc32(@svg_properties[svg_path]["pages"].keys.join).to_s(16)+".svg"
     end
 
     def get_svg_properties()
         @svg_properties
     end
 
-    def get_url_replacement_id(svg_rel_path, page_path) #think of better name
-        @svg_properties[svg_rel_path]["pages"][page_path]
+    def get_url_replacement_id(svg_path, page_path) #think of better name?
+        @svg_properties[svg_path]["pages"][page_path]
     end
 
     def generate()
@@ -32,10 +32,10 @@ class SpritesheetsGenerator
         self._clone_rexml_sprites_into_rexml_spritesheets()
     end
 
-    def write(spritesheets_dest) #need to change to write to sites folder (programatically, get site dest... not just adding  _site to rel path)
-        FileUtils.mkdir_p(spritesheets_dest)
+    def write(spritesheet_dest)
+        FileUtils.mkdir_p(spritesheet_dest)
         @rexml_spritesheet_properties.each_pair do |spritesheet_name, properties|
-            spritesheet_path = File.join(spritesheets_dest, spritesheet_name)
+            spritesheet_path = File.join(spritesheet_dest, spritesheet_name)
             Util::REXMLHelpers.write_rexml_to_file(spritesheet_path, properties["spritesheet"])
         end
     end
@@ -58,9 +58,9 @@ class SpritesheetsGenerator
     end
 
     def _build_rexml_sprites()
-        @svg_properties.each_pair do |svg_rel_path, properties|
+        @svg_properties.each_pair do |svg_path, properties|
             @rexml_spritesheet_properties[properties["spritesheet"]]["sprites"] ||= Set.new
-            rexml_svg = Util::REXMLHelpers.svg_to_rexml_svg(File.join(Config.get(site.config, "svg_dir"), svg_rel_path))
+            rexml_svg = Util::REXMLHelpers.svg_to_rexml_svg(svg_path)
             rexml_sprite = Util::REXMLHelpers.rexml_svg_to_rexml_sprite(rexml_svg)
             @rexml_spritesheet_properties[properties["spritesheet"]]["sprites"].add(rexml_sprite)
         end

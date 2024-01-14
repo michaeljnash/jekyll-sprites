@@ -13,7 +13,7 @@ module Registrars
     private
 
     def self._register_liquid_tags()
-        Liquid::Template.register_tag(Config.get(:default, "tag_name"), Tag) #doesnt have access to CONFIG variable -- actually get from _config.yml!! make util function to get config vars
+        Liquid::Template.register_tag(Config.get("default", "tag_name"), Tag) #doesnt have access to CONFIG variable -- actually get from _config.yml!! make util function to get config vars
     end
 
     def self._register_jekyll_hooks()
