@@ -1,6 +1,7 @@
 require 'fileutils'
 require 'zlib'
 require_relative 'util'
+require_relative 'config'
 require_relative 'hook_actions'
 
 class SpritesheetsGenerator
@@ -59,7 +60,7 @@ class SpritesheetsGenerator
     def _build_rexml_sprites()
         @svg_properties.each_pair do |svg_rel_path, properties|
             @rexml_spritesheet_properties[properties["spritesheet"]]["sprites"] ||= Set.new
-            rexml_svg = Util::REXMLHelpers.svg_to_rexml_svg(File.join(CONFIG["svgs_dir"], svg_rel_path))
+            rexml_svg = Util::REXMLHelpers.svg_to_rexml_svg(File.join(Config.get(site.config, "svg_dir"), svg_rel_path))
             rexml_sprite = Util::REXMLHelpers.rexml_svg_to_rexml_sprite(rexml_svg)
             @rexml_spritesheet_properties[properties["spritesheet"]]["sprites"].add(rexml_sprite)
         end
