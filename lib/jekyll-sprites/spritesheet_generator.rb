@@ -1,7 +1,7 @@
 require 'fileutils'
 require 'zlib'
 require_relative 'util'
-require_relative 'config'
+require_relative 'configuration'
 
 module Jekyll
 
@@ -9,7 +9,7 @@ module Jekyll
     
         class SpritesheetGenerator
 
-            def initialize()
+            def initialize
                 @svg_properties = {}
                 @rexml_spritesheet_properties = {}
             end
@@ -38,10 +38,10 @@ module Jekyll
 
             end
 
-            def generate()
-                self._build_rexml_spritesheets()
-                self._build_rexml_sprites()
-                self._clone_rexml_sprites_into_rexml_spritesheets()
+            def generate
+                self._build_rexml_spritesheets
+                self._build_rexml_sprites
+                self._clone_rexml_sprites_into_rexml_spritesheets
             end
 
             def write(site)
@@ -60,7 +60,7 @@ module Jekyll
                 svg_path
             end
 
-            def _build_rexml_spritesheets()
+            def _build_rexml_spritesheets
                 @svg_properties.each_value do |properties|
                     spritesheet = Util::REXMLHelpers.create_rexml_element("svg", {
                         "width": "0",
@@ -75,7 +75,7 @@ module Jekyll
                 end
             end
 
-            def _build_rexml_sprites()
+            def _build_rexml_sprites
                 @svg_properties.each_pair do |svg_path, properties|
                     @rexml_spritesheet_properties[properties["spritesheet"]]["sprites"] ||= Set.new
                     rexml_svg = Util::REXMLHelpers.svg_to_rexml_svg(svg_path)
@@ -84,7 +84,7 @@ module Jekyll
                 end
             end
 
-            def _clone_rexml_sprites_into_rexml_spritesheets()
+            def _clone_rexml_sprites_into_rexml_spritesheets
                 @rexml_spritesheet_properties.each_value do |properties|
                     properties["sprites"].each do |rexml_sprite|
                         properties["spritesheet"].add_element(rexml_sprite.deep_clone)

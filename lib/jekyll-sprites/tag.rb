@@ -1,5 +1,5 @@
 require "jekyll"
-require_relative "config"
+require_relative "configuration"
 
 
 module Jekyll
@@ -12,13 +12,14 @@ module Jekyll
                 markup = Tag._validate_markup(markup)
                 attributes = Tag._parse_attributes(markup)
                 @attributes = Tag._validate_attributes(attributes)
+                @svg_rel_path = attributes.delete("src")
                 super
             end
 
             def render(context)
                 site = context.registers[:site]
                 page_path = context["page"]["path"]
-                svg_path = File.join(Configuration.get(site.config, ["sprites", "svg_dir"]), @attributes["src"])
+                svg_path = File.join(Configuration.get(site.config, ["sprites", "svg_dir"]), @svg_rel_path)
                 spritesheet_generator = Configuration.get(site.config, ["sprites", "spritesheet_generator"])
                 spritesheet_generator.set_svg_properties(svg_path, page_path)
                 attributes_string = @attributes.map { |key, value| "#{key}=\"#{value}\"" }.join(" ")

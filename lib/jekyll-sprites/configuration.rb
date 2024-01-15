@@ -5,7 +5,7 @@ module Jekyll
 
     module Sprites
     
-        module Config
+        module Configuration
 
             DEFAULT = {
                 "sprites" => {

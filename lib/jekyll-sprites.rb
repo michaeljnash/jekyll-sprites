@@ -7,7 +7,6 @@ require_relative "jekyll_sprites/registration"
 
 module Jekyll
   module Sprites
+    Registration.register_all
   end
 end
-
-Registration.register_all()

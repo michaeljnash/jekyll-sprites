@@ -1,6 +1,4 @@
 require 'rexml/document'
-require_relative 'hook_actions'
-
 
 module Jekyll
 
