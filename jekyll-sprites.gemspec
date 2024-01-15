@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative "lib/jekyll_sprites/version"
+require_relative "lib/jekyll-sprites/version"
 
 Gem::Specification.new do |spec|
   spec.name = "jekyll-sprites"
