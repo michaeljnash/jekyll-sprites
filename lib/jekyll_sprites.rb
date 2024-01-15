@@ -1,9 +1,13 @@
 # frozen_string_literal: true
 
+require "jekyll"
 require_relative "jekyll_sprites/version"
-require_relative "jekyll_sprites/registrars"
+require_relative "jekyll_sprites/registration"
 
-Registrars.register_all()
-#module Jekyll
-#  class Error < StandardError; end
-#end
+
+module Jekyll
+  module Sprites
+  end
+end
+
+Registration.register_all()

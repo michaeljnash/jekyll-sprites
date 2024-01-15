@@ -4,7 +4,7 @@ require_relative "lib/jekyll_sprites/version"
 
 Gem::Specification.new do |spec|
   spec.name = "jekyll-sprites"
-  spec.version = JekyllSprites::VERSION
+  spec.version = Jekyll::Sprites::VERSION
   spec.authors = ["Michael Nash"]
   spec.email = ["mjnash194@gmail.com"]
 
