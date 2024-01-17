@@ -8,7 +8,11 @@ Gem::Specification.new do |spec|
   spec.authors = ["Michael Nash"]
   spec.email = ["mjnash194@gmail.com"]
 
-  spec.summary = "Provides a liquid tag to include svgs which are then converted to sprites and bundled into spritesheets based on their usage throughout site pages. Each page only loads the sprites required, and no more."
+  spec.summary = <<-SUMMARY
+    Provides a liquid tag to include svgs which are then converted to sprites
+    and bundled into spritesheets based on their usage throughout site pages.
+    Each page only loads the sprites required, and no more.
+  SUMMARY
   spec.homepage = "https://github.com/michaeljnash/jekyll-sprites"
   spec.license = "MIT"
   spec.required_ruby_version = ">= 2.6.0"
@@ -26,7 +30,10 @@ Gem::Specification.new do |spec|
   end
   spec.require_paths = ["lib"]
 
-  spec.add_runtime_dependency "jekyll", ">= 3.0"
+  spec.add_development_dependency "bundler"
+  spec.add_dependency "jekyll", ">= 3.0", "< 5.0"
+  spec.add_development_dependency "rake"
+  spec.add_development_dependency "rubocop"
 
   # For more information and examples about making a new gem, check out our
   # guide at: https://bundler.io/guides/creating_gem.html

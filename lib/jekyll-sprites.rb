@@ -1,12 +1,11 @@
 # frozen_string_literal: true
 
 require "jekyll"
-require_relative "jekyll_sprites/version"
-require_relative "jekyll_sprites/registration"
-
+require_relative "jekyll-sprites/version"
+require_relative "jekyll-sprites/registration"
 
 module Jekyll
   module Sprites
-    Registration.register_all
+    include Hooks #needed?
   end
 end

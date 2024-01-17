@@ -11,3 +11,11 @@ Style/StringLiteralsInInterpolation:
 
 Layout/LineLength:
   Max: 120
+
+Naming/FileName:
+  Exclude:
+    - 'lib/jekyll-sprites.rb'
+
+Style/Documentation:
+  Exclude:
+    - 'lib/jekyll-sprites.rb'
